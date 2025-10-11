@@ -15,11 +15,9 @@ public class Entry
 
     public void Display()
     {
-        Console.WriteLine("-----");
         Console.WriteLine($"Date: {Date}");
         Console.WriteLine($"Prompt: {Prompt}");
         Console.WriteLine($"Response: {Response}");
-        Console.WriteLine("-----");
         Console.WriteLine();
     }
 }
