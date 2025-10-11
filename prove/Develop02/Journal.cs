@@ -13,6 +13,8 @@ public class Journal
 
     public void DisplayAll()
     {
+        SortEntriesByDate();
+
         foreach (Entry e in Entries)
         {
             e.Display();
@@ -38,8 +40,37 @@ public class Journal
         foreach (string line in lines)
         {
             string[] parts = line.Split('|');
-            Entry entry = new Entry(parts[0], parts[1], parts[2]);
-            Entries.Add(entry);
+            if (parts.Length == 3)
+            {
+                Entry entry = new Entry(parts[0], parts[1], parts[2]);
+                Entries.Add(entry);
+            }
         }
+
+        SortEntriesByDate();
+    }
+
+    public void DisplayEntriesByDate(string date)
+    {
+        bool found = false;
+
+        foreach (Entry e in Entries)
+        {
+            if (e.Date == date)
+            {
+                e.Display();
+                found = true;
+            }
+        }
+
+        if (!found)
+        {
+            Console.WriteLine("No entries found for that date.");
+        }
+    }
+
+    public void SortEntriesByDate()
+    {
+        Entries.Sort((a, b) => a.Date.CompareTo(b.Date));
     }
 }

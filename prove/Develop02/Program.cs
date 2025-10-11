@@ -17,12 +17,13 @@ class Program
             Console.WriteLine("3. Save journal to file");
             Console.WriteLine("4. Load journal from file");
             Console.WriteLine("5. Quit");
+            Console.WriteLine("6. View entries by date");
             Console.Write("Choose an option: ");
 
             string input = Console.ReadLine();
             if (!int.TryParse(input, out choice))
             {
-                Console.WriteLine("Please enter a number between 1 and 5.");
+                Console.WriteLine("Please enter a number between 1 and 6.");
                 continue;
             }
 
@@ -58,6 +59,12 @@ class Program
             else if (choice == 5)
             {
                 Console.WriteLine("Goodbye!");
+            }
+            else if (choice == 6)
+            {
+                Console.Write("Enter a date (e.g., 10/11/2025): ");
+                string date = Console.ReadLine();
+                journal.DisplayEntriesByDate(date);
             }
             else
             {
