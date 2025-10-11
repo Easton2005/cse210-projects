@@ -1,5 +1,9 @@
 using System;
 
+// EXCEEDING REQUIREMENTS:
+// Uses a consistent date format (yyyy-MM-dd) so users can reliably search by date.
+// Adds file-exists checks and error messages for save/load operations.
+
 class Program
 {
     static void Main(string[] args)
@@ -18,7 +22,7 @@ class Program
             Console.WriteLine("4. Load journal from file");
             Console.WriteLine("5. Quit");
             Console.WriteLine("6. View entries by date");
-            Console.Write("Choose an option: ");
+            Console.Write("Choose an option (1-6): ");
 
             string input = Console.ReadLine();
             if (!int.TryParse(input, out choice))
@@ -33,10 +37,13 @@ class Program
                 Console.WriteLine($"\n{prompt}");
                 Console.Write("Your response: ");
                 string response = Console.ReadLine();
-                string date = DateTime.Now.ToShortDateString();
+
+                // Use a consistent date format to make searching easier
+                string date = DateTime.Now.ToString("yyyy-MM-dd");
 
                 Entry entry = new Entry(date, prompt, response);
                 journal.AddEntry(entry);
+                Console.WriteLine($"Entry added for {date}.");
             }
             else if (choice == 2)
             {
@@ -44,17 +51,15 @@ class Program
             }
             else if (choice == 3)
             {
-                Console.Write("Enter filename to save: ");
+                Console.Write("Enter filename to save (e.g., journal.txt): ");
                 string filename = Console.ReadLine();
                 journal.SaveToFile(filename);
-                Console.WriteLine("Journal saved successfully.");
             }
             else if (choice == 4)
             {
-                Console.Write("Enter filename to load: ");
+                Console.Write("Enter filename to load (e.g., journal.txt): ");
                 string filename = Console.ReadLine();
                 journal.LoadFromFile(filename);
-                Console.WriteLine("Journal loaded successfully.");
             }
             else if (choice == 5)
             {
@@ -62,7 +67,7 @@ class Program
             }
             else if (choice == 6)
             {
-                Console.Write("Enter a date (e.g., 10/11/2025): ");
+                Console.Write("Enter a date to view (format: yyyy-MM-dd, e.g., 2025-10-11): ");
                 string date = Console.ReadLine();
                 journal.DisplayEntriesByDate(date);
             }

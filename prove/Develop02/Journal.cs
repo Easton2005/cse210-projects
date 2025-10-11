@@ -14,6 +14,11 @@ public class Journal
     public void DisplayAll()
     {
         SortEntriesByDate();
+        if (Entries.Count == 0)
+        {
+            Console.WriteLine("Journal is empty.");
+            return;
+        }
 
         foreach (Entry e in Entries)
         {
@@ -23,37 +28,63 @@ public class Journal
 
     public void SaveToFile(string filename)
     {
-        using (StreamWriter outputFile = new StreamWriter(filename))
+        try
         {
-            foreach (Entry e in Entries)
+            using (StreamWriter outputFile = new StreamWriter(filename))
             {
-                outputFile.WriteLine($"{e.Date}|{e.Prompt}|{e.Response}");
+                foreach (Entry e in Entries)
+                {
+                    // separator '|' used per assignment simplification
+                    outputFile.WriteLine($"{e.Date}|{e.Prompt}|{e.Response}");
+                }
             }
+            Console.WriteLine($"Saved {Entries.Count} entries to '{filename}'.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error saving file: {ex.Message}");
         }
     }
 
     public void LoadFromFile(string filename)
     {
-        Entries.Clear();
-        string[] lines = File.ReadAllLines(filename);
-
-        foreach (string line in lines)
+        try
         {
-            string[] parts = line.Split('|');
-            if (parts.Length == 3)
+            if (!File.Exists(filename))
             {
-                Entry entry = new Entry(parts[0], parts[1], parts[2]);
-                Entries.Add(entry);
+                Console.WriteLine($"File not found: {filename}");
+                return;
             }
-        }
 
-        SortEntriesByDate();
+            Entries.Clear();
+            string[] lines = File.ReadAllLines(filename);
+
+            foreach (string line in lines)
+            {
+                string[] parts = line.Split('|');
+                if (parts.Length == 3)
+                {
+                    Entry entry = new Entry(parts[0], parts[1], parts[2]);
+                    Entries.Add(entry);
+                }
+                else
+                {
+                    Console.WriteLine("Skipped malformed line in file.");
+                }
+            }
+
+            SortEntriesByDate();
+            Console.WriteLine($"Loaded {Entries.Count} entries from '{filename}'.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading file: {ex.Message}");
+        }
     }
 
     public void DisplayEntriesByDate(string date)
     {
         bool found = false;
-
         foreach (Entry e in Entries)
         {
             if (e.Date == date)
@@ -71,6 +102,6 @@ public class Journal
 
     public void SortEntriesByDate()
     {
-        Entries.Sort((a, b) => a.Date.CompareTo(b.Date));
+        Entries.Sort((Entry a, Entry b) => a.Date.CompareTo(b.Date));
     }
 }
