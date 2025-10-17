@@ -4,27 +4,27 @@ class Program
 {
     static void Main(string[] args)
     {
-        Random randomGenerator = new Random();
-        int magicNumber = randomGenerator.Next(1, 101); // include 100
-        int userGuess = 0;
+        // Make some fraction objects
+        Fraction f1 = new Fraction();
+        Console.WriteLine(f1.GetFractionString());
+        Console.WriteLine(f1.GetDecimalValue());
 
-        while (userGuess != magicNumber)
-        {
-            Console.Write("What is your guess? ");
-            userGuess = int.Parse(Console.ReadLine());
+        Fraction f2 = new Fraction(5);
+        Console.WriteLine(f2.GetFractionString());
+        Console.WriteLine(f2.GetDecimalValue());
 
-            if (userGuess < magicNumber)
-            {
-                Console.WriteLine("Too low!");
-            }
-            else if (userGuess > magicNumber)
-            {
-                Console.WriteLine("Too high!");
-            }
-            else
-            {
-                Console.WriteLine("You guessed it!");
-            }
-        }
+        Fraction f3 = new Fraction(3, 4);
+        Console.WriteLine(f3.GetFractionString());
+        Console.WriteLine(f3.GetDecimalValue());
+
+        Fraction f4 = new Fraction(1, 3);
+        Console.WriteLine(f4.GetFractionString());
+        Console.WriteLine(f4.GetDecimalValue());
+
+        // Change values using setters
+        f4.SetTop(2);
+        f4.SetBottom(5);
+        Console.WriteLine(f4.GetFractionString());
+        Console.WriteLine(f4.GetDecimalValue());
     }
 }
