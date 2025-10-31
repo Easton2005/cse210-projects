@@ -4,16 +4,39 @@ class Program
 {
     static void Main(string[] args)
     {
-        Assignment a = new Assignment("Samuel Bennett", "Multiplication");
+        // Ask for student info
+        Console.Write("Enter the student's name: ");
+        string name = Console.ReadLine();
+
+        Console.Write("Enter the topic: ");
+        string topic = Console.ReadLine();
+
+        Console.WriteLine();
+
+        // Create a basic assignment using what the user typed
+        Assignment a = new Assignment(name, topic);
         Console.WriteLine(a.GetSummary());
         Console.WriteLine();
 
-        MathAssignment m = new MathAssignment("Roberto Rodriguez", "Fractions", "7.3", "8-19");
+        // Create a math assignment
+        Console.Write("Enter the math section: ");
+        string section = Console.ReadLine();
+
+        Console.Write("Enter the problem numbers: ");
+        string problems = Console.ReadLine();
+
+        MathAssignment m = new MathAssignment(name, topic, section, problems);
+        Console.WriteLine();
         Console.WriteLine(m.GetSummary());
         Console.WriteLine(m.GetHomeworkList());
         Console.WriteLine();
 
-        WritingAssignment w = new WritingAssignment("Mary Waters", "European History", "The Causes of World War II");
+        // Create a writing assignment
+        Console.Write("Enter the title of the writing assignment: ");
+        string title = Console.ReadLine();
+
+        WritingAssignment w = new WritingAssignment(name, topic, title);
+        Console.WriteLine();
         Console.WriteLine(w.GetSummary());
         Console.WriteLine(w.GetWritingInfo());
     }
