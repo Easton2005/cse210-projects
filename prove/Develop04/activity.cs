@@ -21,7 +21,7 @@ public class Activity
         Console.Write("How long, in seconds, would you like your session to be? ");
         _duration = int.Parse(Console.ReadLine());
         Console.WriteLine("Get ready...");
-        Thread.Sleep(2000); // short pause instead of spinner
+        Thread.Sleep(2000);
     }
 
     public void DisplayEndingMessage()

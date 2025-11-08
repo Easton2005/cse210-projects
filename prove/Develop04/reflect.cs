@@ -28,21 +28,32 @@ public class ReflectionActivity : Activity
     {
         DisplayStartingMessage();
 
+        // Cap duration at 30 seconds maximum
+        if (_duration > 30)
+        {
+            Console.WriteLine("\nNote: The reflection activity has a maximum time of 30 seconds.");
+            _duration = 30;
+            Thread.Sleep(2000);
+        }
+
         Random rand = new Random();
         Console.WriteLine($"\n{_prompts[rand.Next(_prompts.Count)]}\n");
         Console.WriteLine("When you have something in mind, press Enter to continue.");
         Console.ReadLine();
 
         Console.WriteLine("Now ponder the following questions:\n");
-        DateTime endTime = DateTime.Now.AddSeconds(_duration);
 
-        while (DateTime.Now < endTime)
+        int questionTime = 10; // show each question for 10 seconds
+        int totalQuestions = Math.Min(_duration / questionTime, _questions.Count);
+
+        for (int i = 0; i < totalQuestions; i++)
         {
-            Console.WriteLine($"> {_questions[rand.Next(_questions.Count)]}");
-            Thread.Sleep(4000); // short pause instead of spinner
+            Console.WriteLine($"> {_questions[i]}");
+            Thread.Sleep(questionTime * 1000);
             Console.WriteLine();
         }
 
         DisplayEndingMessage();
     }
 }
+
