@@ -46,4 +46,3 @@ public class ReflectionActivity : Activity
         DisplayEndingMessage();
     }
 }
-
